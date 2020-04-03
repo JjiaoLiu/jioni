@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <p>call和apply的区别是什么，哪个的性能更好一些？</p>
+    <p>实现(5).add(3).minus(2),时期输出结果为6</p>
+    <p>箭头函数和普通函数的区别是什么？构造函数（function）可以使用new生成实例，，那么箭头函数可以吗？为什么？</p>
+    <p>如何把一个字符串的大小写取反？</p>
+    <p>用户输入一个网址，验证是否符合URL网址的格式。</p>
+    <pre>
+        var a={},b='123',c=123;
+        a[b]='b';
+        a[c]='c';
+        console.log(a[b]);// 'c'
+    </pre>
+    <pre>
+        function Foo(){
+            Foo.a = function(){
+                console.log('1');
+            }
+            this.a = function(){
+                console.log('2');
+            }
+        }
+
+        Foo.prototype.a = function(){
+            console.log(3);
+        }
+
+        Foo.a = function(){
+            console.log(4);
+        }
+
+        Foo.a();//4;
+        let foo = new Foo();
+        foo.a();//2
+        Foo.a();//1
+    </pre>
+
+    <p>编写正则：匹配一个6-16位的字符串，必须同时包含有大小写字母和数字</p>
+    <p>编写正则：匹配字母或是数字，但是一定要有_</p>
+    <p>编写正则：1-10位，数字，字母，下划线组成字符串，必须有_</p>
+    <span data-name='value'>1</span>
+    <span data-name='value'>1</span>
+    <span data-name='value'>1</span>
+    <span data-name='value'>1</span>
+    <span data-name='value'>1</span>
+    <p>实现new</p>
+    <p>讲述组扁平化，并去除其中重复的数据，最后得到一个生序且不重复的数组</p>
+    <p>英文字母汉字组成的字符串，用正则给英文单词前后加空格</p>
+    <p>实现一个$attr(name,value)遍历 属性为name，值为value的元素合集</p>
+    <p>合并数组并排序</p>
+    <pre>
+        let arr1 = ['a','b','c'];
+        let arr2 = ['a1','a2','b1','b2','c1','c2'];
+        // ['a1','a2','a','b1,'b2','b','c1','c2','c'];
+    </pre>
+    <br>
+    <pre>
+        for(let i = 0; i < 10; i++) {
+            setTimeout(() => {
+                console.log(i)
+            },1000)
+        }
+    </pre>
+    <p>处理数据，公司12个月的销售额，无知的月份设置为null</p>
+    <pre>
+        {
+            1:22222,
+            2:890,
+            4:3343,
+            8:9999
+        }
+    </pre>
+</body>
+<script src="面试.js"></script>
+
+<!-- 编写正则：匹配一个6-16位的字符串，必须同时包含有大小写字母和数字 -->
+<!-- 编写正则：匹配字母或是数字，但是一定要有_ -->
+<!-- 编写正则：1-10位，数字，字母，下划线组成字符串，必须有_ -->
+<script>
+    var strReg1 = /(?!^[a-z]+$)(?!^[A-Z]+$)(?!^[0-9]+$)(?!^[a-zA-Z]+$)(?!^[A-Z0-9]+$)(?!^[a-z0-9]+$)[a-zA-Z0-9]{6,16}/;
+    strReg1.test('aserSSS');//true
+    // x(?=y) 匹配'x'仅仅当'x'后面跟着'y'.这种叫做先行断言。
+    // 匹配一个空，后边跟着 '_' strReg2.test('sd_') strReg2.test('_sd')
+    var strReg2 = /(?=_)\w/; '匹配一个""，后面紧跟这"_""'
+    var strReg3 = /(?!^[0-9a-zA-Z]$)\w{1,10}/;
+    var strReg4 = /(?=_)/; // strRe4.test('_')
+    var strReg5 = /\w(?=_)/; '匹配\w，后面紧跟这"_""'
+</script>
+<!-- 
+    实现一个$attr(name,value)遍历
+    属性为name，值为value的元素合集
+-->
+<script>
+    function $attr(name, value) {
+        return document.querySelectorAll('*[' + name + '=' + value + ']');
+    }
+    $attr('data-name', 'value');
+</script>
+<!-- 
+    英文字母汉字组成的字符串，用正则给英文单词前后加空格；
+    \b 匹配一个词的边界
+ -->
+<script>
+    var str = 'asdf0sdf';
+    var strReg6 = /\b[a-zA-Z]\b/ig;
+    str = str.replace(strReg6, value => ' ' + value + ' ').trim();
+</script>
+<!-- 讲述组扁平化，并去除其中重复的数据，最后得到一个生序且不重复的数组 -->
+<script>
+    var arr2 = [1, 2, 4, [4, 7, 8, [8, 9, 6]]];
+    function flatten(arr) {
+        return arr.reduce(function (acc, cur) {
+            return acc.concat(Array.isArray(cur) ? flatten(cur) : cur);
+        }, []).sort();
+    }
+    arr2 = flatten(arr2)
+    arr2 = new Set(arr2)
+    console.log(Array.from(arr2))
+</script>
+<!-- 实现new -->
+<script>
+    function Dog(name) {
+        this.name = name;
+    }
+
+    Dog.prototype.bark = function () {
+        console.log('wangwang');
+    }
+
+    Dog.prototype.sayName = function () {
+        console.log('My name is' + this.name);
+    }
+
+    function _new(constractor, ...arg) {
+        var obj = {};
+        obj.__proto__ = constractor.prototype;
+        constractor.call(obj, ...arg);
+        return obj;
+    }
+
+    let sanmao = _new(Dog, '三毛');
+    sanmao.bark();
+    sanmao.sayName();
+    // instanceof 运算符用于检测构造函数的 prototype 属性是否出现在某个实例对象的原型链上。
+    console.log(sanmao instanceof Dog);
+</script>
+<script>
+    // for (let i = 0; i < 10; i++) {
+    //     setTimeout(() => {
+    //         console.log(i)
+    //     }, 1000)
+    // }
+
+    // for (var i = 0; i < 10; i++) {
+    //     (function (i) {
+    //         setTimeout(() => {
+    //             console.log(i)
+    //         }, 1000)
+    //     })(i)
+    // }
+    // for (let i = 0; i < 10; i++) {
+    //     setTimeout(((i) => {
+    //         console.log(i)
+    //     })(i), 1000)
+    // }
+</script>
+
+<script>
+    var b = 0;
+    (function b() { //匿名函数如果设置了函数名，那么这个函数可以理解为用const创建出来的
+        b = 20; //非严格模式下不会报错，严格模式下报错（const创建的变量不能重新赋值）
+        console.log(b); // => 函数
+    })();
+    // 外界无法访问匿名函数 匿名函数设置函数名也不行；
+    // b() //报错 b is not a function
+    console.log(b);
+</script>
+<!-- 处理数据 -->
+<script>
+    var obj2 = {
+        1: 22222,
+        2: 890,
+        4: 3343,
+        8: 9999
+    };
+
+    for (let i = 1; i < 13; i++) {
+        obj2[i] ? obj2[i] : obj2[i] = null;
+    }
+
+    console.log(obj2);
+
+</script>
+
+</html>

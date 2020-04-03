@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    ParentNode.append 方法在 ParentNode的最后一个子节点之后插入一组 Node 对象或 DOMString 对象。
+    被插入的 DOMString 对象等价为 Text 节点。
+    与 Node.appendChild() 的差异：
+    ParentNode.append()允许追加 DOMString 对象，而 Node.appendChild() 只接受 Node 对象。
+    ParentNode.append() 没有返回值，而 Node.appendChild() 返回追加的 Node 对象。
+    ParentNode.append() 可以追加多个节点和字符串，而 Node.appendChild() 只能追加一个节点。
+
+    插入一个元素节点
+    var parent = document.createElement("div");
+    var p = document.createElement("p");
+    parent.append(p);
+
+    console.log(parent.childNodes); // NodeList
+
+
+
+    插入文本
+    var parent = document.createElement("div");
+    parent.append("Some text");
+
+    console.log(parent.textContent); // "Some text"
+
+
+    插入一个节点，同时插入一些文本
+    var parent = document.createElement("div");
+    var p = document.createElement("p");
+    parent.append("Some text", p);
+
+    console.log(parent.childNodes);
+
+
+    append方法不支持IE，只能使用Polyfill;
+</body>
+
+</html>

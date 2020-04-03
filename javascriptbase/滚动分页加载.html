@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <p>占位</p>
+    <ul id="container"></ul>
+</body>
+<script>
+
+    let count = 20,
+        flag = true,
+        page = 1,
+        container = document.getElementById('container'),
+        winHeight = document.documentElement.clientHeight;
+
+    async function load() {
+        if (!flag) return;
+        flag = false;
+        loadDom(await getData());
+        flag && checkBounding();
+    }
+
+    function getData() {
+        return new Promise((resolve, reject) => {
+            if (page > 4) {
+                return reject('够啦');
+            }
+            setTimeout(function () {
+                let arr = [];
+                for (let i = 0; i < 10; i++) {
+                    let random = page + ',' + Math.random().toFixed(2);
+                    arr.push(random);
+                }
+                flag = true;
+                page++;
+                return resolve(arr);
+            }, 1000)
+        }).catch(err => {
+            console.log(err);
+            return []
+        })
+    }
+
+    function loadDom(data) {
+        let fragment = document.createDocumentFragment();
+        data.forEach(element => {
+            let createLi = document.createElement('li');
+            createLi.innerHTML = element;
+            fragment.appendChild(createLi);
+        });
+        container.appendChild(fragment);
+    }
+
+    function checkBounding() {
+        let rect = document.getElementById('container').getBoundingClientRect();
+        if (rect.bottom <= winHeight) {
+            load();
+        }
+    }
+
+    load()
+
+    window.onscroll = function () {
+        flag && checkBounding();
+    };
+
+</script>
+
+</html>

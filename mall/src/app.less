@@ -1,0 +1,40 @@
+.page {
+    font-size       : 28px;
+    font-family     : "Nanum Gothic", thejamycsregular, Arial, "Microsoft YaHei";
+    font-size-adjust: none;
+    background      : #eaeaea;
+    width           : 100%;
+}
+
+.fixed {
+    position: fixed;
+    z-index : 3;
+}
+
+.full-screen-mask {
+    position        : fixed;
+    z-index         : 3;
+    left            : 0;
+    top             : 0;
+    right           : 0;
+    bottom          : 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.show-from-left .child {
+    transform : translateX(0%);
+    transition: transform .3s;
+}
+
+.hide-to-left .child {
+    transform : translateX(-100%);
+    transition: transform .3s;
+}
+
+.bold {
+    font-weight: 500;
+}
+
+.reletive {
+    position: relative;
+}

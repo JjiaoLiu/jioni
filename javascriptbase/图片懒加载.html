@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .lazy-item {
+            display: inline-block;
+            width: 300px;
+            height: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <p>编写代码实现图片的懒加载</p>
+    <div class="lazy-box">
+        <img src="" alt="" class="lazy-item"
+            data-origial="http://i2.hdslb.com/bfs/archive/0ec481477cca20dd51c4f7d1fc6aaffbf815c1e9.jpg" />
+        <img src="" alt="" class="lazy-item"
+            data-origial="https://b-ssl.duitang.com/uploads/item/201611/21/20161121222101_n4urz.jpeg" />
+        <img src="" alt="" class="lazy-item"
+            data-origial="http://i0.hdslb.com/bfs/archive/6d286ba42f1533dff510bfbfb3187f098c80af09.jpg" />
+        <img src="" alt="" class="lazy-item"
+            data-origial="http://img4.imgtn.bdimg.com/it/u=3578308928,943776804&fm=26&gp=0.jpg" />
+        <img src="" alt="" class="lazy-item"
+            data-origial="http://i2.hdslb.com/bfs/archive/c9421c963c62ea57454a523171071ac60b03aa51.png" />
+    </div>
+</body>
+<!-- // 图片懒加载--------start -->
+<script>
+    var screenHeight = document.body.clientHeight;//1072 文档的总高度
+    screenHeight = window.screen.availHeight;//877 设备高度 - MAC顶部工具栏 900 - 23
+    screenHeight = document.body.offsetHeight; //1072  文档的总高度
+    screenHeight = window.screen.height; //设备高度 900 
+    screenHeight = window.screenTop; // 顶部工具栏的高度 23
+    screenHeight = document.documentElement.clientHeight;// 当前浏览器窗口的大小 437 不包括浏览器工具栏
+    // console.log(screenHeight)
+    var screenWidth = document.body.clientWidth;
+    var lazyItems = document.querySelectorAll('.lazy-item');
+    function lazyloadImg() {
+        lazyItems.forEach(item => {
+            let srcpath = item.getAttribute('data-origial');
+            if (!srcpath) return false;
+            let itemRect = item.getBoundingClientRect();
+            if (itemRect.top <= screenHeight && (itemRect.left >= 0 && itemRect.left <= screenWidth)) {
+                let img = new Image();
+                img.src = srcpath;
+                img.onload = function () {
+                    item.setAttribute('src', srcpath);
+                    item.removeAttribute('data-origial')
+                }
+            }
+        })
+    }
+
+    function throttle(fn, wait) {
+        let flag = true;
+        return function () {
+            if (!flag) return null;
+            flag = false;
+            setTimeout(function () {
+                fn();
+                flag = true;
+            }, wait)
+        }
+    }
+    lazyloadImg();
+    window.onscroll = throttle(load, 5000);
+</script>
+
+</html>

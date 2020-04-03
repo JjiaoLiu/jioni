@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            display: block;
+        }
+
+        #main {
+            width: 100%;
+            margin: 0 auto;
+            -webkit-column-count: 5;
+            column-count: 5;
+            -webkit-column-gap: 0;
+            column-gap: 0;
+        }
+
+        .box {
+            padding: 7px;
+            box-sizing: border-box;
+            border: 1px solid rebeccapurple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100px;height:300px;" /></div>
+                <div class="text">简单介绍1</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100px;height: 200px;" /></div>
+                <div class="text">简单介绍2</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100%;height: 150px;" /></div>
+                <div class="text">简单介绍3</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100px;height: 300px;" /></div>
+                <div class="text">简单介绍1</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100px;height: 130px;" /></div>
+                <div class="text">简单介绍2</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100px;height: 50px;" /></div>
+                <div class="text">简单介绍3</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100%;height: 40px;" /></div>
+                <div class="text">简单介绍1</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100px;height: 160px;" /></div>
+                <div class="text">简单介绍2</div>
+            </div>
+        </div>
+        <div class="box">
+            <div class="wrapper">
+                <div class="pic"><img src="" style="width: 100%;height: 170px;" /></div>
+                <div class="text">简单介绍3</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var boxEle = document.getElementsByClassName("box");
+    var boxWid = document.documentElement.clientWidth / 5;
+    Array.from(boxEle).forEach(element => {
+        element.style.width = boxWid + 'px'
+    });
+</script>
+
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 300px;
+            height: 170px;
+            border: 1px solid #000000;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        .container img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1" ondrop="drop(event)" class="container"></div>
+    <img id="drag1" draggable="true" width="300" ondragstart="drag(event)" src="./img.jpg" alt="" />
+    <p>步骤</p>
+    <ul>
+        <li>调用 preventDefault() 来避免浏览器对数据的默认处理（drop 事件的默认行为是以链接形式打开）</li>
+        <li>通过 dataTransfer.getData("Text") 方法获得被拖的数据。该方法将返回在 setData() 方法中设置为相同类型的任何数据。</li>
+        <li>被拖数据是被拖元素的 id ("drag1")</li>
+        <li>把被拖元素追加到放置元素（目标元素）中</li>
+    </ul>
+
+    <p>本地文件上传，可拖拽（单文件）</p>
+    <input type="file" name="file" id="file" onchange="change(event)" style="display: none;">
+    <label for="file" class="container" id="labalForFile" ondrop="dropFileFromLocal(event)">拖放文件到此处</label>
+</body>
+<script>
+    function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("Text");
+        // Node.appendChild() 方法将一个节点附加到指定父节点的子节点列表的末尾处。
+        // 如果将被插入的节点已经存在于当前文档的文档树中，那么 appendChild() 只会将它从原先的位置移动到新的位置。（不需要事先移除要移动的节点）。
+        ev.target.appendChild(document.getElementById(data));
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("Text", ev.target.id);
+    }
+
+    function dropFileFromLocal(ev) {
+        ev.preventDefault();
+        let rawFile = ev.dataTransfer.files[0]; //获取拖拽文件信息 这里是单文件拖拽
+        setImg(rawFile);
+    }
+    function change(ev) {
+        let rawFile = ev.target.files[0];
+        setImg(rawFile);
+    }
+
+
+    function setImg(rawFile) {
+        let reader = new FileReader(); //调用 FileReader
+        reader.readAsDataURL(rawFile); //将文件读取为 DataURL(base64)
+        reader.onload = function (evt) {
+            document.getElementById('labalForFile').innerHTML = '<img src="' + evt.target.result + '" />';
+        }
+    }
+
+    document.addEventListener("drop", function (e) {  //拖离   
+        e.preventDefault();
+    })
+    document.addEventListener("dragleave", function (e) {  //拖后放   
+        e.preventDefault();
+    })
+    document.addEventListener("dragenter", function (e) {  //拖进  
+        e.preventDefault();
+    })
+    document.addEventListener("dragover", function (e) {  //拖来拖去    
+        e.preventDefault();
+    });
+</script>
+
+</html>
